@@ -18,46 +18,6 @@ void generateNumbers(int arr[], int n, int maxValue){
     cout<<endl;
 }
 
-//binary search algorithm: returns index if found, else -1
-int BinarySearch(int arr[], int n, int target){
-    int left = 0; 
-    int right = n-1;
-
-    while(left <= right){
-        int mid = left + (right - left) / 2;
-
-        if(arr[mid] == target){
-            return mid;
-        }
-        else if(arr[mid] < target){
-            left = mid + 1;
-        }
-        else {
-            right = mid - 1;
-        }
-    }
-
-   return -1; //Not found
-}
-
-//exponential search: uses binary seacrh within found range
-int exponentialSearch(int arr[], int n, int target){
-    if(arr[0] == target){
-        return 0;
-    }
-    int bound = 1;
-    while(bound < n && arr[bound] <= target){
-        bound *= 2; //doubling bound to find range
-    }
-
-    int left = bound / 2;
-    int right = min(bound, n - 1);
-
-    //perform binary searcg on sub-array
-    int result = BinarySearch(arr + left, right - left +1, target);
-    return (result == -1)? -1: result + left;
-}
-
 //partition function for Quick sort
 int partition(int arr[], int low, int high){
     int pivot = arr[high]; //choosing last element as pivot
@@ -81,14 +41,6 @@ void quickSort(int arr[], int low, int high){
         quickSort(arr, low, p - 1);
         quickSort(arr, p + 1, high);
     }
-}
-
-//utility function to display array
-void displayArray(int arr[], int n){
-    for(int i = 0; i < n; i++){
-        cout<<arr[i]<<" ";
-    }
-    cout<<endl;
 }
 
 //merge two sorted halves (used in merge sort)
@@ -141,6 +93,56 @@ void mergeSort(int arr[], int left, int right){
         merge(arr, left, mid, right); //merge both halves
     }
 }
+
+//binary search algorithm: returns index if found, else -1
+int BinarySearch(int arr[], int n, int target){
+    int left = 0; 
+    int right = n-1;
+
+    while(left <= right){
+        int mid = left + (right - left) / 2;
+
+        if(arr[mid] == target){
+            return mid;
+        }
+        else if(arr[mid] < target){
+            left = mid + 1;
+        }
+        else {
+            right = mid - 1;
+        }
+    }
+
+   return -1; //Not found
+}
+
+//exponential search: uses binary seacrh within found range
+int exponentialSearch(int arr[], int n, int target){
+    if(arr[0] == target){
+        return 0;
+    }
+    int bound = 1;
+    while(bound < n && arr[bound] <= target){
+        bound *= 2; //doubling bound to find range
+    }
+
+    int left = bound / 2;
+    int right = min(bound, n - 1);
+
+    //perform binary searcg on sub-array
+    int result = BinarySearch(arr + left, right - left +1, target);
+    return (result == -1)? -1: result + left;
+}
+
+//utility function to display array
+void displayArray(int arr[], int n){
+    for(int i = 0; i < n; i++){
+        cout<<arr[i]<<" ";
+    }
+    cout<<endl;
+}
+
+
 
 int main() {
     
