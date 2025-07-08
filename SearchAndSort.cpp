@@ -206,7 +206,8 @@ int main() {
     }
 
     cout<<"Binary Search Steps: "<<bstep<<endl;
-
+    cout<<endl;
+    
     //Exponential Search on merge sorted array
     cout<<"\nUsing Exponential Search (on Merge Sorted array):\n";
     start = high_resolution_clock::now();
@@ -222,7 +223,7 @@ int main() {
     }
     
     //display runtime for all algorithms
-    cout<<"\nQuick Sort Runtime: "<<quickTime.count()<<"ns\n";
+    cout<<"\n\nQuick Sort Runtime: "<<quickTime.count()<<"ns\n";
     cout<<"Merge Sort Runtime: "<<mergeTime.count()<<"ns\n";
     cout<<"Binary Search Runtime: "<<binaryTime.count()<<"ns\n";
     cout<<"Exponential Search Runtime: "<<exponentialTime.count()<<"ns\n";
