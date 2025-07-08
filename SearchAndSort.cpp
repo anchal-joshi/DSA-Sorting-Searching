@@ -222,10 +222,10 @@ int main() {
     }
     
     //display runtime for all algorithms
-    cout<<"\nQuick Sort Runtime: "<<quickTime.count()<<"us\n";
-    cout<<"Merge Sort Runtime: "<<mergeTime.count()<<"us\n";
-    cout<<"Binary Search Runtime: "<<binaryTime.count()<<"us\n";
-    cout<<"Exponential Search Runtime: "<<exponentialTime.count()<<"us\n";
+    cout<<"\nQuick Sort Runtime: "<<quickTime.count()<<"ns\n";
+    cout<<"Merge Sort Runtime: "<<mergeTime.count()<<"ns\n";
+    cout<<"Binary Search Runtime: "<<binaryTime.count()<<"ns\n";
+    cout<<"Exponential Search Runtime: "<<exponentialTime.count()<<"ns\n";
 
     //free dynamically allocated memory
     delete[] original;
