@@ -94,26 +94,29 @@ void mergeSort(int arr[], int left, int right){
     }
 }
 
+int bstep = 0;
 //binary search algorithm: returns index if found, else -1
-int BinarySearch(int arr[], int n, int target){
-    int left = 0; 
-    int right = n-1;
+int BinarySearch(int arr[], int first,int last, int target){
+    int index;
 
-    while(left <= right){
-        int mid = left + (right - left) / 2;
+    if(first > last){
+        index = -1;
+    }
+    else{
+        int mid = (first + last) / 2;
+        bstep++;
 
-        if(arr[mid] == target){
-            return mid;
+        if(target == arr[mid]){
+            index = mid;
         }
-        else if(arr[mid] < target){
-            left = mid + 1;
+        else if(target < arr[mid]){
+            index = BinarySearch(arr, first, mid - 1, target);
         }
         else {
-            right = mid - 1;
+            index = BinarySearch(arr, mid + 1, last, target);
         }
     }
-
-   return -1; //Not found
+    return index;
 }
 
 //exponential search: uses binary seacrh within found range
@@ -121,6 +124,7 @@ int exponentialSearch(int arr[], int n, int target){
     if(arr[0] == target){
         return 0;
     }
+
     int bound = 1;
     while(bound < n && arr[bound] <= target){
         bound *= 2; //doubling bound to find range
@@ -129,9 +133,9 @@ int exponentialSearch(int arr[], int n, int target){
     int left = bound / 2;
     int right = min(bound, n - 1);
 
-    //perform binary searcg on sub-array
-    int result = BinarySearch(arr + left, right - left +1, target);
-    return (result == -1)? -1: result + left;
+    //perform binary search on sub-array
+     
+    return BinarySearch(arr, left, right, target);
 }
 
 //utility function to display array
@@ -167,7 +171,7 @@ int main() {
     auto start = high_resolution_clock::now();
     quickSort(arrQuick, 0, n-1);
     auto end = high_resolution_clock::now();
-    auto quickTime = duration_cast<microseconds>(end - start);
+    auto quickTime = duration_cast<nanoseconds>(end - start);
     cout<<"\nSorted Numbers (using Quick Sort): ";
     displayArray(arrQuick, n);
 
@@ -175,7 +179,7 @@ int main() {
     start = high_resolution_clock::now();
     mergeSort(arrMerge, 0, n-1);
     end = high_resolution_clock::now();
-    auto mergeTime = duration_cast<microseconds>(end - start);
+    auto mergeTime = duration_cast<nanoseconds>(end - start);
     cout<<"\nSorted Numbers (using Merge Sort): ";
     displayArray(arrMerge, n);
 
@@ -187,25 +191,28 @@ int main() {
 
    //Binary Search on quick sorted array
    cout<<"\nUsing Binary Search (on Quick Sorted array):"<<endl;
+
+   bstep = 0;
    start = high_resolution_clock::now();
-   int result = BinarySearch(arrQuick, n, target);
+   int result = BinarySearch(arrQuick,0, n-1, target);
    end = high_resolution_clock::now();
-   auto binaryTime = duration_cast<microseconds>(end - start);
+   auto binaryTime = duration_cast<nanoseconds>(end - start);
   
    if(result != -1){
         cout<<"\nElement found at index (0-based): "<<result<<endl;
    }
     else{
         cout<<"\nElement not found"<<endl;
-
     }
+
+    cout<<"Binary Search Steps: "<<bstep<<endl;
 
     //Exponential Search on merge sorted array
     cout<<"\nUsing Exponential Search (on Merge Sorted array):\n";
     start = high_resolution_clock::now();
     int idx2 = exponentialSearch(arrMerge, n, target);
     end = high_resolution_clock::now();
-    auto exponentialTime = duration_cast<microseconds>(end - start);
+    auto exponentialTime = duration_cast<nanoseconds>(end - start);
     
     if (idx2 != -1){
         cout << "\nElement found at index (0-based): " << idx2 << "\n";
