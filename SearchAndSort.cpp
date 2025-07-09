@@ -9,10 +9,10 @@ using namespace std::chrono;
 
 //function to generate n random numbers and store in array
 void generateNumbers(int arr[], int n, int maxValue){
-    srand(time(0)); //seed for random number generation
+    srand(time(0)); 
     cout<<"Generated Numbers: ";
     for(int i = 0;i < n; i++){
-        arr[i] = rand() % (maxValue + 1); //generate random number
+        arr[i] = rand() % (maxValue + 1); 
         cout<<arr[i]<<" ";
     }
     cout<<endl;
@@ -20,17 +20,17 @@ void generateNumbers(int arr[], int n, int maxValue){
 
 //partition function for Quick sort
 int partition(int arr[], int low, int high){
-    int pivot = arr[high]; //choosing last element as pivot
+    int pivot = arr[high]; 
     int i = low - 1;
 
     for(int j = low; j < high; j++){
         if(arr[j] < pivot){
             i++;
-            swap(arr[i], arr[j]); //swap if element is smaller than pivot
+            swap(arr[i], arr[j]); 
         }
     }
 
-    swap(arr[i+1], arr[high]); //swap pivot to correct position
+    swap(arr[i+1], arr[high]); 
     return i+1;
 }
 
@@ -48,11 +48,11 @@ void merge(int arr[], int left, int mid, int right){
     int n1 = mid - left + 1;
     int n2 = right - mid;
 
-    //temporary arrays
+    
     int* L = new int[n1];
     int* R = new int[n2];
 
-    //copy data to temp arrays
+    
     for(int i = 0;i<n1; i++){
         L[i] = arr[left + i];
     }
@@ -60,7 +60,7 @@ void merge(int arr[], int left, int mid, int right){
         R[j] = arr[mid + 1 + j];
     }
 
-    //merge the arrays
+
     int i = 0, j = 0, k = left;
     while(i<n1 && j < n2){
         if(L[i] <= R[j]){
@@ -71,7 +71,7 @@ void merge(int arr[], int left, int mid, int right){
         }
     }
 
-    //copy remaining elements
+    
     while (i < n1){
         arr[k++] = L[i++];
     }
@@ -79,7 +79,7 @@ void merge(int arr[], int left, int mid, int right){
         arr[k++] = R[j++];
     }
 
-    //free memory
+    
     delete[] L;
     delete[] R;
 }
@@ -88,9 +88,9 @@ void merge(int arr[], int left, int mid, int right){
 void mergeSort(int arr[], int left, int right){
     if(left < right){
         int mid = left + (right - left) /2;
-        mergeSort(arr, left, mid); //sort first half
-        mergeSort(arr, mid+1, right); //sort second half
-        merge(arr, left, mid, right); //merge both halves
+        mergeSort(arr, left, mid); 
+        mergeSort(arr, mid+1, right); 
+        merge(arr, left, mid, right); 
     }
 }
 
@@ -119,7 +119,7 @@ int BinarySearch(int arr[], int first,int last, int target){
     return index;
 }
 
-//exponential search: uses binary seacrh within found range
+//exponential search: uses binary search within found range
 int exponentialSearch(int arr[], int n, int target){
     if(arr[0] == target){
         return 0;
@@ -127,7 +127,7 @@ int exponentialSearch(int arr[], int n, int target){
 
     int bound = 1;
     while(bound < n && arr[bound] <= target){
-        bound *= 2; //doubling bound to find range
+        bound *= 2; 
     }
 
     int left = bound / 2;
@@ -138,7 +138,7 @@ int exponentialSearch(int arr[], int n, int target){
     return BinarySearch(arr, left, right, target);
 }
 
-//utility function to display array
+//to display array
 void displayArray(int arr[], int n){
     for(int i = 0; i < n; i++){
         cout<<arr[i]<<" ";
@@ -157,11 +157,11 @@ int main() {
     cout<<"Enter how many random numbers you want to generate: ";
     cin>>n;
 
-    //Dynamically allocate arrays
+    
     int* original = new int[n];
     generateNumbers(original, n, maxValue);
 
-    // Copy original array for separate sorting
+    
     int* arrQuick = new int[n];
     int* arrMerge = new int[n];
     copy(original, original + n, arrQuick);
@@ -191,7 +191,6 @@ int main() {
 
    //Binary Search on quick sorted array
    cout<<"\nUsing Binary Search (on Quick Sorted array):"<<endl;
-
    bstep = 0;
    start = high_resolution_clock::now();
    int result = BinarySearch(arrQuick,0, n-1, target);
@@ -207,7 +206,7 @@ int main() {
 
     cout<<"Binary Search Steps: "<<bstep<<endl;
     cout<<endl;
-    
+
     //Exponential Search on merge sorted array
     cout<<"\nUsing Exponential Search (on Merge Sorted array):\n";
     start = high_resolution_clock::now();
