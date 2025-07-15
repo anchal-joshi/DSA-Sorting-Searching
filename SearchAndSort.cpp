@@ -7,7 +7,6 @@
 using namespace std;
 using namespace std::chrono;
 
-//function to generate n random numbers and store in array
 void generateNumbers(int arr[], int n, int maxValue){
     srand(time(0)); 
     cout<<"Generated Numbers: ";
@@ -18,7 +17,6 @@ void generateNumbers(int arr[], int n, int maxValue){
     cout<<endl;
 }
 
-//partition function for Quick sort
 int partition(int arr[], int low, int high){
     int pivot = arr[high]; 
     int i = low - 1;
@@ -34,7 +32,6 @@ int partition(int arr[], int low, int high){
     return i+1;
 }
 
-//Quick sort algorithm (recursive)
 void quickSort(int arr[], int low, int high){
     if(low < high){
         int p = partition(arr, low, high);
@@ -43,7 +40,6 @@ void quickSort(int arr[], int low, int high){
     }
 }
 
-//merge two sorted halves (used in merge sort)
 void merge(int arr[], int left, int mid, int right){
     int n1 = mid - left + 1;
     int n2 = right - mid;
@@ -84,7 +80,6 @@ void merge(int arr[], int left, int mid, int right){
     delete[] R;
 }
 
-//merge sort algorithm (recursive)
 void mergeSort(int arr[], int left, int right){
     if(left < right){
         int mid = left + (right - left) /2;
@@ -95,7 +90,6 @@ void mergeSort(int arr[], int left, int right){
 }
 
 int bstep = 0;
-//binary search algorithm: returns index if found, else -1
 int BinarySearch(int arr[], int first,int last, int target){
     int index;
 
@@ -119,7 +113,6 @@ int BinarySearch(int arr[], int first,int last, int target){
     return index;
 }
 
-//exponential search: uses binary search within found range
 int exponentialSearch(int arr[], int n, int target){
     if(arr[0] == target){
         return 0;
@@ -133,19 +126,15 @@ int exponentialSearch(int arr[], int n, int target){
     int left = bound / 2;
     int right = min(bound, n - 1);
 
-    //perform binary search on sub-array
-     
     return BinarySearch(arr, left, right, target);
 }
 
-//to display array
 void displayArray(int arr[], int n){
     for(int i = 0; i < n; i++){
         cout<<arr[i]<<" ";
     }
     cout<<endl;
 }
-
 
 
 int main() {
@@ -167,7 +156,6 @@ int main() {
     copy(original, original + n, arrQuick);
     copy(original, original + n, arrMerge);
     
-    //quick sort and runtime measurement
     auto start = high_resolution_clock::now();
     quickSort(arrQuick, 0, n-1);
     auto end = high_resolution_clock::now();
@@ -175,7 +163,6 @@ int main() {
     cout<<"\nSorted Numbers (using Quick Sort): ";
     displayArray(arrQuick, n);
 
-    //Merge sort and runtime measurement
     start = high_resolution_clock::now();
     mergeSort(arrMerge, 0, n-1);
     end = high_resolution_clock::now();
@@ -183,13 +170,10 @@ int main() {
     cout<<"\nSorted Numbers (using Merge Sort): ";
     displayArray(arrMerge, n);
 
-
-    //Search operations
    int target;
    cout<<"\nEnter the number to search: ";
    cin>>target;
 
-   //Binary Search on quick sorted array
    cout<<"\nUsing Binary Search (on Quick Sorted array):"<<endl;
    bstep = 0;
    start = high_resolution_clock::now();
@@ -207,7 +191,6 @@ int main() {
     cout<<"Binary Search Steps: "<<bstep<<endl;
     cout<<endl;
 
-    //Exponential Search on merge sorted array
     cout<<"\nUsing Exponential Search (on Merge Sorted array):\n";
     start = high_resolution_clock::now();
     int idx2 = exponentialSearch(arrMerge, n, target);
@@ -221,13 +204,11 @@ int main() {
         cout << "\nElement not found\n";
     }
     
-    //display runtime for all algorithms
     cout<<"\n\nQuick Sort Runtime: "<<quickTime.count()<<"ns\n";
     cout<<"Merge Sort Runtime: "<<mergeTime.count()<<"ns\n";
     cout<<"Binary Search Runtime: "<<binaryTime.count()<<"ns\n";
     cout<<"Exponential Search Runtime: "<<exponentialTime.count()<<"ns\n";
 
-    //free dynamically allocated memory
     delete[] original;
     delete[] arrQuick;
     delete[] arrMerge;
